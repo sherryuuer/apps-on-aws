@@ -48,3 +48,24 @@ docker login
 docker push <your-docker-hub-username>/stapp:latest
 docker rmi <your-docker-hub-username>/stapp:latest
 docker pull <your-docker-hub-username>/stapp
+```
+
+## summary-contents
+
+- *Lambda Function*：
+- 创建LambdaFunction，配置timeout时长为APIGateway时长29秒用于测试
+- 创建LambdaFunction的IAMrole：CloudWatch，S3，Bedrock的权限
+- 部署Function，输入是日语，需要解决字符解码问题
+- 最新的python版本支持bedrock-runtime，无需解决问题
+
+- *S3*：
+- 创建用于文件输出的bucket
+
+- *API Gateway*：
+- 创建以Lambda Function为后端的dev-stage环境
+- 用resource policy限制ip访问：暂时安全起见将所有的ip屏蔽了
+
+- *test.py*：
+- 从本地使用test代码call api，可以直接返回结果
+- 也可以在S3中确认到结果文件
+- 疑点，本地可以解析为日语，但是s3中下载的是英语，最后一次为日语
