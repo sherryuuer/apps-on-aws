@@ -59,7 +59,10 @@ def extract_text_from_multipart(data):
 
 
 def generate_summary_from_bedrock(content):
-    prompt_text = f"""Human: 以下の内容をまとめてください: {content}
+    prompt_text = f"""Human: 以下の会話を要約してください。
+        \n\n出力形式は「概要」「次回までの確認事項」に分けてください。
+        \n\n---会話---
+        \n\n{content}
     Assistant:"""
 
     body = {
