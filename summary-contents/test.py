@@ -1,6 +1,6 @@
 import requests
 
-url = "get-from-api-gateway"
+url = ""  # from stage dev
 file_path = "test.vtt"
 
 with open(file_path, 'rb') as file:
