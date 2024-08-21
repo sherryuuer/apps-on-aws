@@ -1,6 +1,7 @@
 import requests
 
-url = ""  # from stage dev
+# from stage dev
+url = "url/content-summary"
 file_path = "test.vtt"
 
 with open(file_path, 'rb') as file:
