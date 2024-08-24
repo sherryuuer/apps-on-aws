@@ -69,3 +69,8 @@ docker pull <your-docker-hub-username>/stapp
 - 从本地使用test代码call api，可以直接返回结果
 - 也可以在S3中确认到结果文件
 - 疑点，本地可以解析为日语，但是s3中下载的是英语，最后一次为日语
+
+- *使用Lambda Function URL*
+  - 由于API Gateway有29秒限制，所以使用了Lambda Function URL功能呢
+  - 这个功能无法设置ip限制，所以通过添加 code 逻辑限制 ip 访问
+  - 这样就不需要使用API Gateway了

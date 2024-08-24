@@ -1,7 +1,8 @@
 import requests
 
 # from stage dev
-url = "url/content-summary"
+# url = "url/content-summary"
+url = "https://6dskoikdkrqfq3kbi5455uzp2y0wkrfl.lambda-url.ap-northeast-1.on.aws/"
 file_path = "test.vtt"
 
 with open(file_path, 'rb') as file:

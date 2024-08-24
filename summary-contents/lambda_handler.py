@@ -7,6 +7,15 @@ from email import message_from_bytes
 
 
 def lambda_handler(event, context):
+    # use Function URL, so check the ip source
+    source_ip = event['requestContext']['http']['sourceIp']
+    allowed_ips = ["", ""]
+    if source_ip not in allowed_ips:
+        return {
+            'statusCode': 403,
+            'body': 'Access denied!!!'
+        }
+
     if event.get('isBase64Encoded', False):
         body = base64.b64decode(event['body'])
     else:
