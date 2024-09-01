@@ -74,3 +74,8 @@ docker pull <your-docker-hub-username>/stapp
   - 由于API Gateway有29秒限制，所以使用了Lambda Function URL功能呢
   - 这个功能无法设置ip限制，所以通过添加 code 逻辑限制 ip 访问
   - 这样就不需要使用API Gateway了
+
+- 放弃了APIGateway直接使用Lambda的URL
+- 连接到Streamlit的应用，使用双重认证
+  - x-custom-header：通过event发送的时候收到的是全小写的要注意
+  - streamlit使用密码验证

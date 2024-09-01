@@ -1,20 +1,33 @@
 import boto3
 import botocore.config
 import json
+import os
 import base64
 from datetime import datetime
 from email import message_from_bytes
 
 
 def lambda_handler(event, context):
-    # use Function URL, so check the ip source
-    source_ip = event['requestContext']['http']['sourceIp']
-    allowed_ips = ["", ""]
-    if source_ip not in allowed_ips:
+    # source_ip = event['requestContext']['http']['sourceIp']
+    # allowed_ips = ["118.238.245.247", "113.43.139.80"]
+    # if source_ip not in allowed_ips:
+    # return {
+    # 'statusCode': 403,
+    # 'body': 'Access denied!!!'
+    # }
+    TOKEN = os.environ.get('TOKEN')
+    headers = event.get('headers', {})
+    custom_header = headers.get('x-custom-header', '')
+    print(f'here is the token of custom_header：{custom_header}')
+    if custom_header != TOKEN:
         return {
             'statusCode': 403,
-            'body': 'Access denied!!!'
+            'body': json.dumps(event)
         }
+    # return {
+    #     'statusCode': 200,
+    #     'body': json.dumps('success')
+    # }
 
     if event.get('isBase64Encoded', False):
         body = base64.b64decode(event['body'])
@@ -69,7 +82,7 @@ def extract_text_from_multipart(data):
 
 def generate_summary_from_bedrock(content):
     prompt_text = f"""Human: 以下の会話を要約してください。
-        \n\n出力形式は「概要」「次回までの確認事項」に分けてください。
+        \n\n出力形式は「時間」「参加者」「概要」「次回までの確認事項」に分けてください。概要と次回までの確認事項に関しては経緯も入れてください。箇条書きで５〜１０項目ぐらいにしてください
         \n\n---会話---
         \n\n{content}
     Assistant:"""
